@@ -1,0 +1,126 @@
+CSS counters - 
+1. CSS counters are "variables" maintained by CSS whose values can be incremented by CSS rules (to track how many times they are used). Counters let you adjust the appearance of content based on its placement in the document.
+Automatic Numbering With Counters. 
+2. CSS counters are like "variables". The variable values can be incremented by CSS rules (which will track how many times they are used).
+
+CSS Counter Properties
+1. content 	Used with the ::before and ::after pseudo-elements, to insert generated content
+2. counter-increment 	Increments one or more counter values
+3. counter-reset 	Creates or resets one or more counters
+4. counter() 	Returns the current value of the named counter
+
+To work with CSS counters we will use the following properties:
+A. counter-reset - Creates or resets a counter
+B. counter-increment - Increments a counter value
+C. content - Inserts generated content
+D. counter() or counters() function - Adds the value of a counter to an element
+
+To use a CSS counter, it must first be created with counter-reset.
+The following example creates a counter for the page (in the body selector), then increments the counter value for each <h2> element and adds "Section <value of the counter>:" to the beginning of each <h2> element:
+Example - 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  counter-reset: section;
+}
+h2::before {
+  counter-increment: section;
+  content: "Section " counter(section) ": ";
+}
+</style>
+</head>
+<body>
+<h1>CSS counters/h1>
+<h2>HTML page</h2>
+<h2>CSS style</h2>
+<h2>Php Property</h2>
+<h2>JAVA</h2>
+</body>
+</html>
+
+Nesting Counters
+The following example creates one counter for the page (section) and one counter for each <h1> element (subsection). The "section" counter will be counted for each <h1> element with "Section <value of the section counter>.", and the "subsection" counter will be counted for each <h2> element with "<value of the section counter>.<value of the subsection counter>":
+Example - 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  counter-reset: section;
+}
+h1 {
+  counter-reset: subsection;
+}
+h1::before {
+  counter-increment: section;
+  content: "Section " counter(section) ". ";
+}
+h2::before {
+  counter-increment: subsection;
+  content: counter(section) "." counter(subsection) " ";
+}
+</style>
+</head>
+<body>
+<h1>Numbers</h1>
+<h2>One</h2>
+<h2>Two</h2>
+<h2>Three</h2>
+<h2>Words</h2>
+<h1>Apple</h1>
+<h2>Ball</h2>
+<h2>Cat</h2>
+<h2>Dog</h2>
+<h1>Languages</h1>
+<h2>Telugu</h2>
+<h2>Hindi</h2>
+<h2>English</h2>
+</body>
+</html>
+
+1. A counter can also be useful to make outlined lists because a new instance of a counter is automatically created in child elements. Here we use the counters() function to insert a string between different levels of nested counters:
+Example - 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ol {
+  counter-reset: section;
+  list-style-type: none;
+}
+
+li::before {
+  counter-increment: section;
+  content: counters(section,".") " ";
+}
+</style>
+</head>
+<body>
+<ol>
+  <li>one</li>
+  <li>two   
+  <ol>
+    <li>three</li>
+    <li>four</li>
+    <li>five
+    <ol>
+      <li>six</li>
+      <li>seven</li>
+      <li>eight</li>
+    </ol>
+    </li>
+    <li>nine</li>
+  </ol>
+  </li>
+  <li>ten</li>
+  <li>eleven</li>
+</ol>
+<ol>
+  <li>twelve</li>
+  <li>thirteen</li>
+</ol>
+</body>
+</html>
+
